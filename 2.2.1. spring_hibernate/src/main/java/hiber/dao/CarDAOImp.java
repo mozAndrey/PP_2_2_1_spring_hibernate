@@ -23,12 +23,11 @@ public class CarDAOImp implements CarDAO {
     @SuppressWarnings("unchecked")
     public User findByCar(String model, int series) {
         User user;
-        Car car = new Car(model, series);
         TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
         List <User> listOfUsers = query.getResultList();
         for (User users : listOfUsers) {
-            if (users.getCar().getModel().equals(car.getModel()) &
-            users.getCar().getSeries() == car.getSeries()) {
+            if (users.getCar().getModel().equals(model) &
+            users.getCar().getSeries() == series) {
                 user = users;
                 return user;
             }
