@@ -1,12 +1,16 @@
 package hiber.dao;
 
+import hiber.model.Car;
 import hiber.model.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class UserDaoImp implements UserDao {
@@ -28,17 +32,12 @@ public class UserDaoImp implements UserDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public User findByCar(String model, int series) {
-        User user;
-        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
-        List<User> listOfUsers = query.getResultList();
-        for (User users : listOfUsers) {
-            if (users.getCar().getModel().equals(model) &
-                    users.getCar().getSeries() == series) {
-                user = users;
-                return user;
-            }
-        }
-        return null;
+    public User findByCar(Car car) {
+        Query query = sessionFactory.getCurrentSession().createQuery("select user from User user inner join " +
+                "user.car car with car.model=:model and car.series=:series");
+        query.setParameter("model", car.getModel());
+        query.setParameter("series", car.getSeries());
+        List<User> users = query.getResultList();
+        return users.get(0);
     }
 }

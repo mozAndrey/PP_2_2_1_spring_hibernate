@@ -23,8 +23,7 @@ public class MainApp {
         userService.add(new User("User3", "Lastname3", "user3@mail.ru", car3));
         userService.add(new User("User4", "Lastname4", "user4@mail.ru", car4));
 
-        User usersCarFoundedByMyMethod = userService.findByCar(car1.getModel(), car1.getSeries());
-        System.out.println("Find by car = !!!!!!!!!!!!!!!!" + usersCarFoundedByMyMethod.getLastName());
+        User usersCarFoundedByMyMethod = userService.findByCar(car1);
         List<User> users = userService.listUsers();
         for (User user : users) {
             System.out.println("Id = " + user.getId());
