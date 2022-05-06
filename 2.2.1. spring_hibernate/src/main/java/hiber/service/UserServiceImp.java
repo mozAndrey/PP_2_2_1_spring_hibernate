@@ -28,8 +28,8 @@ public class UserServiceImp implements UserService {
    }
 
    @Transactional
-   public User findByCar (Car car) {
-      return userDao.findByCar(car);
+   public User findByCar (String model, int series) {
+      return userDao.findByCar(model, series);
    }
 
 }
